@@ -1,0 +1,111 @@
+/* ============================================
+   APP SHELL — Premium Layout
+   ============================================ */
+
+.app-shell {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  position: relative;
+  background: var(--bg-primary);
+}
+
+/* ── Sidebar ── */
+.app-shell__sidebar {
+  width: 340px;
+  flex-shrink: 0;
+  border-right: 1px solid var(--border);
+  background: var(--bg-secondary);
+  display: flex;
+  flex-direction: column;
+  z-index: 20;
+  transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  position: relative;
+}
+
+/* ── Main Chat Area ── */
+.app-shell__main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-primary);
+  position: relative;
+  z-index: 10;
+}
+
+/* ── Info Panel ── */
+.app-shell__info {
+  width: 0;
+  opacity: 0;
+  visibility: hidden;
+  flex-shrink: 0;
+  background: var(--bg-secondary);
+  display: flex;
+  flex-direction: column;
+  z-index: 20;
+  transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.app-shell__info.is-open {
+  width: 320px;
+  opacity: 1;
+  visibility: visible;
+  border-left: 1px solid var(--border);
+}
+
+/* Overlay for mobile */
+.app-shell__overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 15;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+/* Tablet & Mobile: Info Panel overlay from right */
+@media (max-width: 1199px) {
+  .app-shell__info {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 320px;
+    transform: translateX(100%);
+    box-shadow: var(--shadow-xl);
+    opacity: 1;
+    visibility: visible;
+  }
+  .app-shell__info.is-open {
+    transform: translateX(0);
+  }
+}
+
+/* Mobile: Sidebar overlay from left */
+@media (max-width: 767px) {
+  .app-shell__sidebar {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 88vw;
+    max-width: 360px;
+    transform: translateX(-100%);
+    box-shadow: var(--shadow-xl);
+  }
+  .app-shell__sidebar.is-open {
+    transform: translateX(0);
+  }
+  
+  .lg\:hidden { display: block !important; }
+}
+
+@media (min-width: 768px) {
+  .lg\:hidden { display: none !important; }
+}
