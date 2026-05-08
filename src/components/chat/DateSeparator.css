@@ -1,0 +1,5 @@
+.date-sep__line {
+  height: 1px;
+  background: var(--border);
+  opacity: 0.5;
+}

@@ -1,0 +1,305 @@
+/* ============================================
+   INFO PANEL — Premium Design
+   ============================================ */
+
+.info-panel {
+  background: var(--bg-secondary);
+  border-left: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Top accent line */
+.info-panel::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent2), var(--accent));
+  z-index: 1;
+}
+
+/* ── Header ── */
+.info-panel__header {
+  height: 72px;
+  min-height: 72px;
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.info-panel__header-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+
+.info-panel__close-btn {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.info-panel__close-btn:hover {
+  background: var(--danger-bg);
+  color: var(--danger);
+  border-color: rgba(248, 113, 113, 0.3);
+  transform: rotate(90deg);
+}
+
+/* ── Profile Section ── */
+.info-profile-section {
+  position: relative;
+  overflow: hidden;
+  padding: 32px 20px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-bottom: 1px solid var(--border);
+  background: linear-gradient(180deg, rgba(124, 92, 252, 0.06) 0%, transparent 100%);
+}
+
+.info-profile-avatar {
+  position: relative;
+  margin-bottom: 14px;
+  padding: 3px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  box-shadow: 0 8px 28px rgba(124, 92, 252, 0.3);
+}
+
+.info-profile-name {
+  font-family: 'Outfit', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+  margin-bottom: 4px;
+}
+
+.info-profile-meta {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+/* ── Section Panel ── */
+.info-panel-section {
+  padding: 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.section-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 14px;
+}
+
+/* ── Action Buttons ── */
+.info-panel__action-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  background: var(--bg-elevated);
+  color: var(--text-primary);
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-bottom: 6px;
+  font-family: 'Inter', sans-serif;
+}
+
+.info-panel__action-btn svg {
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+.info-panel__action-btn:hover {
+  background: var(--bg-hover);
+  border-color: var(--border-strong);
+  transform: translateX(2px);
+}
+
+.info-panel__action-btn:hover svg {
+  color: var(--accent);
+}
+
+.info-panel__action-btn.danger {
+  color: var(--danger);
+  background: var(--danger-bg);
+  border-color: rgba(248, 113, 113, 0.15);
+}
+
+.info-panel__action-btn.danger svg {
+  color: var(--danger);
+}
+
+.info-panel__action-btn.danger:hover {
+  background: var(--danger);
+  color: white;
+  border-color: var(--danger);
+  transform: translateX(2px);
+}
+
+.info-panel__action-btn.danger:hover svg {
+  color: white;
+}
+
+/* ── Media Items ── */
+.media-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 11px 12px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  margin-bottom: 6px;
+}
+
+.media-item:hover {
+  background: var(--bg-hover);
+  border-color: var(--border-strong);
+  transform: translateX(2px);
+}
+
+.media-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  flex-shrink: 0;
+}
+
+.media-icon.photos {
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.35);
+}
+
+.media-icon.docs {
+  background: linear-gradient(135deg, var(--accent2), #059669);
+  box-shadow: 0 4px 12px rgba(6, 214, 160, 0.35);
+}
+
+.media-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.media-info-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.media-info-count {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+/* ── Member List ── */
+.member-list-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 9px 10px;
+  border-radius: 12px;
+  transition: all 0.2s ease;
+  margin-bottom: 3px;
+}
+
+.member-list-item:hover {
+  background: var(--bg-elevated);
+}
+
+.member-remove-btn {
+  opacity: 0;
+  background: var(--danger-bg);
+  color: var(--danger);
+  border: none;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  transform: scale(0.85);
+}
+
+.member-list-item:hover .member-remove-btn {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.member-remove-btn:hover {
+  background: var(--danger);
+  color: white;
+}
+
+.add-member-btn {
+  background: var(--accent-light);
+  color: var(--accent);
+  border: 1px solid var(--border-strong);
+  padding: 7px 14px;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-family: 'Inter', sans-serif;
+}
+
+.add-member-btn:hover {
+  background: var(--accent);
+  color: white;
+  border-color: transparent;
+  box-shadow: 0 4px 12px rgba(124, 92, 252, 0.35);
+}
+
+/* ── Scrollbar ── */
+.info-panel > div::-webkit-scrollbar { width: 4px; }
+.info-panel > div::-webkit-scrollbar-track { background: transparent; }
+.info-panel > div::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border-radius: 10px;
+}

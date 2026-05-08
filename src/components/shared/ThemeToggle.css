@@ -1,0 +1,62 @@
+/* ============================================
+   THEME TOGGLE — Premium Design
+   ============================================ */
+
+.theme-toggle {
+  background: var(--bg-elevated);
+  border: 1.5px solid var(--border);
+  color: var(--text-muted);
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  overflow: hidden;
+  position: relative;
+}
+
+.theme-toggle:hover {
+  background: var(--accent-light);
+  color: var(--accent);
+  border-color: var(--border-strong);
+}
+
+.theme-toggle:active {
+  transform: scale(0.92);
+}
+
+.theme-toggle__icon-wrapper {
+  position: relative;
+  width: 18px;
+  height: 18px;
+}
+
+.theme-toggle__icon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.26, 1.55), opacity 0.3s ease;
+}
+
+/* Dark Mode State */
+.theme-toggle--dark .theme-toggle__icon--sun {
+  transform: translateY(24px) rotate(45deg);
+  opacity: 0;
+}
+.theme-toggle--dark .theme-toggle__icon--moon {
+  transform: translateY(0) rotate(0);
+  opacity: 1;
+}
+
+/* Light Mode State */
+.theme-toggle--light .theme-toggle__icon--sun {
+  transform: translateY(0) rotate(0);
+  opacity: 1;
+}
+.theme-toggle--light .theme-toggle__icon--moon {
+  transform: translateY(-24px) rotate(-45deg);
+  opacity: 0;
+}
