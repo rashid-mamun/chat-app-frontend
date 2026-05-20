@@ -6,6 +6,7 @@ import MessageBubble from './MessageBubble';
 import DateSeparator from './DateSeparator';
 import MessageContextMenu from './MessageContextMenu';
 import ForwardModal from './ForwardModal';
+import { MessageSquareText } from 'lucide-react';
 import './MessageList.css';
 
 export default function MessageList() {
@@ -105,10 +106,12 @@ export default function MessageList() {
 
   if (messages.length === 0) {
     return (
-      <div className="m-auto text-center">
-        <p className="text-muted bg-elevated px-4 py-2 rounded-lg text-sm shadow-sm inline-block">
-          No messages yet. Say hello!
-        </p>
+      <div className="message-list-empty">
+        <div className="message-list-empty__icon">
+          <MessageSquareText size={24} />
+        </div>
+        <h3>No messages yet</h3>
+        <p>Send the first message and start the conversation.</p>
       </div>
     );
   }
@@ -116,7 +119,7 @@ export default function MessageList() {
   let lastDate = null;
 
   return (
-    <div className="message-list flex flex-col pb-4 pt-4 px-4 overflow-x-hidden">
+    <div className="message-list overflow-x-hidden">
       {messages.map((msg, index) => {
         const currentUserId = user?._id || user?.id;
         const senderId = msg.sender?._id || msg.sender?.id || msg.sender;

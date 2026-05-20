@@ -4,7 +4,7 @@ let toastId = 0;
 
 const useUiStore = create((set, get) => ({
   // ── Theme ──────────────────────────────────────────────
-  theme: localStorage.getItem('theme') || 'dark',
+  theme: localStorage.getItem('theme') || 'light',
 
   toggleTheme: () => {
     const next = get().theme === 'dark' ? 'light' : 'dark';

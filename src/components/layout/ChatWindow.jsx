@@ -1,4 +1,4 @@
-import { Menu, Search, MoreVertical, Paperclip, Smile, Send, Info, X, MessageSquare, Bell, BellOff, UserMinus } from 'lucide-react';
+import { Menu, Search, MoreVertical, Paperclip, Smile, Send, Info, X, MessageSquare, Bell, BellOff, UserMinus, UserPlus, Users } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
 import { format } from 'date-fns';
 import EmojiPicker from 'emoji-picker-react';
@@ -254,10 +254,18 @@ export default function ChatWindow() {
             <div className="chat-window__welcome-icon">
               <MessageSquare size={36} strokeWidth={1.5} />
             </div>
-            <h2>Welcome to ChatApp</h2>
-            <p>
-              Select a conversation from the sidebar or start a new one to begin messaging.
-            </p>
+            <h2>Start chatting</h2>
+            <p>Choose a conversation from the sidebar or create a new chat to begin.</p>
+            <div className="chat-window__welcome-actions">
+              <button type="button" onClick={() => openModal('newChat')}>
+                <UserPlus size={17} />
+                New chat
+              </button>
+              <button type="button" onClick={() => openModal('newGroup')}>
+                <Users size={17} />
+                New group
+              </button>
+            </div>
           </div>
         ) : showSearchBar && localSearchQuery && (isSearching || searchResults.length > 0) ? (
           <div className="chat-window__search-results">

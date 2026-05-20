@@ -1,15 +1,63 @@
 .message-list {
   display: flex;
   flex-direction: column;
-  padding: 1rem;
+  width: 100%;
+  margin: 0;
+  padding: 24px clamp(14px, 2.2vw, 30px) 20px;
   overflow-y: auto;
   flex: 1;
-  background-image: radial-gradient(var(--border-default) 1px, transparent 1px);
-  background-size: 20px 20px;
+  background-image: none;
+  gap: 2px;
+}
+
+@media (max-width: 768px) {
+  .message-list {
+    padding-inline: 12px;
+    padding-top: 18px;
+  }
+}
+
+.message-list-empty {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 10px;
+  color: var(--text-muted);
+  max-width: 280px;
+}
+
+.message-list-empty__icon {
+  width: 58px;
+  height: 58px;
+  border-radius: 18px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-sm);
+}
+
+.message-list-empty h3 {
+  margin: 4px 0 0;
+  color: var(--text-primary);
+  font-size: 18px;
+  font-weight: 750;
+  font-family: 'Inter', sans-serif;
+}
+
+.message-list-empty p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
 }
 
 .message-list::-webkit-scrollbar {
-  width: 6px;
+  width: 4px;
 }
 
 .message-list::-webkit-scrollbar-track {
@@ -17,7 +65,7 @@
 }
 
 .message-list::-webkit-scrollbar-thumb {
-  background: var(--border-default);
+  background: var(--scrollbar-thumb);
   border-radius: 10px;
 }
 

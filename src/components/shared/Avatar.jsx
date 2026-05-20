@@ -2,14 +2,14 @@ import './Avatar.css';
 
 // Consistent color palette — picked by hashing username
 const AVATAR_COLORS = [
-  ['#6c63ff', '#fff'], // purple
-  ['#3b82f6', '#fff'], // blue
-  ['#10b981', '#fff'], // emerald
-  ['#f59e0b', '#fff'], // amber
-  ['#ef4444', '#fff'], // red
-  ['#8b5cf6', '#fff'], // violet
-  ['#06b6d4', '#fff'], // cyan
-  ['#ec4899', '#fff'], // pink
+  ['#0f766e', '#fff'],
+  ['#0284c7', '#fff'],
+  ['#16a34a', '#fff'],
+  ['#d97706', '#fff'],
+  ['#dc2626', '#fff'],
+  ['#be123c', '#fff'],
+  ['#0891b2', '#fff'],
+  ['#4f46e5', '#fff'],
 ];
 
 function getColorFromName(name = '') {

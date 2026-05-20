@@ -1,6 +1,6 @@
 .invite-list {
   margin: 8px 10px 4px;
-  background: linear-gradient(135deg, rgba(124, 92, 252, 0.07) 0%, rgba(6, 214, 160, 0.05) 100%);
+  background: linear-gradient(135deg, var(--accent-ultra) 0%, var(--accent2-light) 100%);
   border: 1px solid var(--border-strong);
   border-radius: 14px;
   overflow: hidden;
@@ -102,7 +102,7 @@
   width: 36px;
   height: 36px;
   border-radius: 10px;
-  background: linear-gradient(135deg, var(--accent) 0%, #a78bfa 100%);
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
   display: flex;
   align-items: center;
   justify-content: center;

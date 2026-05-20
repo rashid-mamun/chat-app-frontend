@@ -1,11 +1,14 @@
 import { useEffect } from 'react';
+import { MessageSquare, UserPlus } from 'lucide-react';
 import useChatStore from '../../store/chatStore';
 import useAuthStore from '../../store/authStore';
+import useUiStore from '../../store/uiStore';
 import ConversationItem from './ConversationItem';
 
 export default function ConversationList() {
   const { conversations, loadingConversations, fetchConversations, activeChat } = useChatStore();
   const { user } = useAuthStore();
+  const { openModal } = useUiStore();
 
   useEffect(() => {
     fetchConversations();
@@ -29,8 +32,16 @@ export default function ConversationList() {
 
   if (conversations.length === 0) {
     return (
-      <div className="p-4 text-center text-muted text-sm border border-dashed border-default rounded-lg m-2">
-        No chats yet. Click + to start a conversation.
+      <div className="conv-empty-state">
+        <div className="conv-empty-state__icon">
+          <MessageSquare size={24} />
+        </div>
+        <div className="conv-empty-state__title">No conversations yet</div>
+        <p className="conv-empty-state__sub">Start a private chat or create a group when you are ready.</p>
+        <button className="conv-empty-state__action" onClick={() => openModal('newChat')}>
+          <UserPlus size={16} />
+          New chat
+        </button>
       </div>
     );
   }
