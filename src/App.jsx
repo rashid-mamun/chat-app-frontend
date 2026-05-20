@@ -17,8 +17,10 @@ const ProtectedRoute = ({ children }) => {
 };
 
 function App() {
-  const { isAuthenticated, accessToken } = useAuthStore();
+  const { isAuthenticated, accessToken, user } = useAuthStore();
   const { 
+    ensureSessionForUser,
+    sessionUserId,
     handleIncomingMessage, 
     handleReactionUpdate,
     handleMessageDeleted,
@@ -38,6 +40,14 @@ function App() {
 
   useEffect(() => {
     if (isAuthenticated && accessToken) {
+      const currentUserId = user?._id || user?.id;
+      if (!currentUserId) return;
+
+      if (String(sessionUserId || '') !== String(currentUserId)) {
+        ensureSessionForUser(currentUserId);
+        return;
+      }
+
       fetchConversations();
       fetchPendingInvites();
       fetchPendingRequests();
@@ -54,7 +64,7 @@ function App() {
         }
       }
     }
-  }, [isAuthenticated, accessToken, fetchConversations, activeChat?.id]);
+  }, [isAuthenticated, accessToken, user?._id, user?.id, sessionUserId, ensureSessionForUser, fetchConversations, activeChat?.id]);
 
   useEffect(() => {
     if (isAuthenticated && accessToken) {

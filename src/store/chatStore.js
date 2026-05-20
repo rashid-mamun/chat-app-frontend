@@ -12,6 +12,7 @@ const useChatStore = create(
     (set, get) => ({
   conversations: [],
   onlineUsers: new Set(),
+  sessionUserId: null,
   activeChat: null, // { type: 'private' | 'group', id: string, entity: User | Group }
   messages: [],
   replyingTo: null, // message object
@@ -53,12 +54,50 @@ const useChatStore = create(
         }))
       ];
 
-      set({ conversations: combined });
+      const currentActive = get().activeChat;
+      const hasActiveInConversationList = currentActive && combined.some((chat) => {
+        if (!chat?._id) return false;
+        const sameId = String(chat._id) === String(currentActive.id);
+        const sameType = currentActive.type === (chat.isGroup ? 'group' : 'private');
+        return sameId && sameType;
+      });
+
+      if (currentActive && !hasActiveInConversationList) {
+        set({ conversations: combined, activeChat: null, messages: [], replyingTo: null });
+      } else {
+        set({ conversations: combined });
+      }
     } catch (error) {
       console.error('Failed to fetch conversations:', error);
     } finally {
       set({ loadingConversations: false });
     }
+  },
+
+  ensureSessionForUser: (userId) => {
+    if (!userId) return;
+    set((state) => {
+      const currentSessionUserId = state.sessionUserId ? String(state.sessionUserId) : null;
+      const nextUserId = String(userId);
+
+      if (currentSessionUserId === nextUserId) {
+        return state;
+      }
+
+      return {
+        sessionUserId: nextUserId,
+        activeChat: null,
+        messages: [],
+        conversations: [],
+        replyingTo: null,
+        typingUsers: {},
+        targetMessageId: null,
+        searchResults: [],
+        advancedSearchResults: [],
+        pendingInvites: [],
+        pendingJoinRequests: [],
+      };
+    });
   },
 
   // Group Management Actions
@@ -694,7 +733,8 @@ const useChatStore = create(
 }), {
   name: 'chat-storage',
   partialize: (state) => ({ 
-    activeChat: state.activeChat 
+    activeChat: state.activeChat,
+    sessionUserId: state.sessionUserId
   }),
 }));
 
