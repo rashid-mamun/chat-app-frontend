@@ -50,16 +50,19 @@ export default function ConversationList() {
     <div className="flex flex-col">
       {conversations.map((chat) => {
         if (!chat) return null;
-        const isGroup = chat.isGroup;
-        const name = isGroup ? chat.name : chat.user?.username;
-        const latestMessage = isGroup ? null : { content: chat.lastMessage }; 
+        const isGroup = Boolean(chat.isGroup);
+        const name = isGroup ? chat.name : (chat.user?.username || 'Unknown User');
+        const rawLastMsg = chat.lastMessage;
+        const latestMessage = typeof rawLastMsg === 'object' && rawLastMsg !== null
+          ? rawLastMsg
+          : rawLastMsg ? { content: rawLastMsg } : null;
         const isActive = activeChat?.id === chat._id;
         
         return (
           <ConversationItem
             key={chat._id}
             id={chat._id}
-            name={name || 'Unknown User'}
+            name={name}
             isGroup={isGroup}
             latestMessage={latestMessage}
             unreadCount={0} 

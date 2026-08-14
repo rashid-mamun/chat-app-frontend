@@ -22,14 +22,20 @@ export default function AddMemberModal() {
         : await userApi.getAllUsers();
       
       // Filter out users who are already in the group or have pending invites
-      const existingMemberIds = activeChat.entity.members.map(m => String(m._id || m.id));
-      const pendingInviteIds = (activeChat.entity.invites || [])
-        .filter(i => i.status === 'pending')
-        .map(i => String(i.user));
+      const existingMemberIds = (activeChat?.entity?.members || []).map(m => {
+        if (typeof m === 'object' && m !== null) return String(m._id || m.id || '');
+        return String(m || '');
+      });
+      const pendingInviteIds = (activeChat?.entity?.invites || [])
+        .filter(i => i && i.status === 'pending')
+        .map(i => {
+          if (typeof i.user === 'object' && i.user !== null) return String(i.user._id || i.user.id || '');
+          return String(i.user || '');
+        });
       
       const filteredUsers = (res.data || []).filter(u => {
-        const id = String(u._id || u.id);
-        return !existingMemberIds.includes(id) && !pendingInviteIds.includes(id);
+        const id = String(u._id || u.id || '');
+        return id && !existingMemberIds.includes(id) && !pendingInviteIds.includes(id);
       });
       
       setUsers(filteredUsers);

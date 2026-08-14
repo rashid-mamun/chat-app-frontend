@@ -64,7 +64,7 @@ function App() {
         }
       }
     }
-  }, [isAuthenticated, accessToken, user?._id, user?.id, sessionUserId, ensureSessionForUser, fetchConversations, activeChat?.id]);
+  }, [isAuthenticated, accessToken, user?._id, user?.id, sessionUserId]);
 
   useEffect(() => {
     if (isAuthenticated && accessToken) {
@@ -98,8 +98,8 @@ function App() {
         const onUserTyping = ({ userId, username }) => {
           if (activeChat) setTyping(activeChat.id, username);
         };
-        const onUserStoppedTyping = ({ userId }) => {
-          if (activeChat) removeTyping(activeChat.id, userId);
+        const onUserStoppedTyping = ({ userId, username }) => {
+          if (activeChat) removeTyping(activeChat.id, username);
         };
         const onUserStatusChanged = ({ userId, isOnline }) => setOnlineStatus(userId, isOnline);
         const onMessageDeleted = ({ messageId }) => handleMessageDeleted(messageId);

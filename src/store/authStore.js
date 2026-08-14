@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { authApi } from '../api/auth.api';
+import socketService from '../api/socket.service';
 
 const useAuthStore = create(
   persist(
@@ -38,6 +39,8 @@ const useAuthStore = create(
           }
         }
         
+        socketService.disconnect();
+
         // Clear local state
         set({
           user: null,
@@ -45,9 +48,6 @@ const useAuthStore = create(
           refreshToken: null,
           isAuthenticated: false,
         });
-        
-        // Optional: clear other stores if needed (chatStore, etc.)
-        // But since we use persist, they might clear themselves or we handle it at app level
       },
     }),
     {

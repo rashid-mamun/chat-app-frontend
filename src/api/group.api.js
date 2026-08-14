@@ -2,8 +2,8 @@ import axiosInstance from './axiosInstance';
 
 export const groupApi = {
   // Create a new group
-  createGroup: async (name, memberIds) => {
-    const response = await axiosInstance.post('/group', { name, members: memberIds });
+  createGroup: async (name, memberIds, privacy = 'public') => {
+    const response = await axiosInstance.post('/group', { name, members: memberIds, privacy });
     return response.data;
   },
 

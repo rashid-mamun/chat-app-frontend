@@ -11,7 +11,7 @@ const useChatStore = create(
   persist(
     (set, get) => ({
   conversations: [],
-  onlineUsers: new Set(),
+  onlineUsers: new Set(), // NOTE: not persisted — restored via socket userStatusChanged events
   sessionUserId: null,
   activeChat: null, // { type: 'private' | 'group', id: string, entity: User | Group }
   messages: [],
@@ -54,19 +54,7 @@ const useChatStore = create(
         }))
       ];
 
-      const currentActive = get().activeChat;
-      const hasActiveInConversationList = currentActive && combined.some((chat) => {
-        if (!chat?._id) return false;
-        const sameId = String(chat._id) === String(currentActive.id);
-        const sameType = currentActive.type === (chat.isGroup ? 'group' : 'private');
-        return sameId && sameType;
-      });
-
-      if (currentActive && !hasActiveInConversationList) {
-        set({ conversations: combined, activeChat: null, messages: [], replyingTo: null });
-      } else {
-        set({ conversations: combined });
-      }
+      set({ conversations: combined });
     } catch (error) {
       console.error('Failed to fetch conversations:', error);
     } finally {
@@ -101,9 +89,9 @@ const useChatStore = create(
   },
 
   // Group Management Actions
-  createGroup: async (name, memberIds) => {
+  createGroup: async (name, memberIds, privacy = 'public') => {
     try {
-      const res = await groupApi.createGroup(name, memberIds);
+      const res = await groupApi.createGroup(name, memberIds, privacy);
       if (res.success) {
         get().fetchConversations();
         useUiStore.getState().addToast('success', 'Group created successfully!');
@@ -375,7 +363,9 @@ const useChatStore = create(
     set({ isAdvancedSearching: true });
     try {
       const res = await chatApi.advancedSearch(params);
-      set({ advancedSearchResults: res.data || [] });
+      // res.data is { messages, total, page, totalPages } — store only the messages array
+      const results = Array.isArray(res.data) ? res.data : (res.data?.messages || []);
+      set({ advancedSearchResults: results });
     } catch (error) {
       console.error('Advanced Search failed:', error);
       useUiStore.getState().addToast('error', 'Advanced search failed');
@@ -585,18 +575,33 @@ const useChatStore = create(
     }
 
     // 2. Update the conversation list's last message
+    let hasMatch = false;
     const updatedConversations = conversations.map(chat => {
-      const isMatch = chat.isGroup 
-        ? chat._id === message.group 
-        : chat._id === message.sender._id || chat._id === message.recipient;
-      
+      const chatIdStr = String(chat._id);
+      const isMatch = chat.isGroup
+        ? chatIdStr === groupId
+        : chatIdStr === senderId || chatIdStr === recipientId;
+
       if (isMatch) {
-        return { ...chat, lastMessage: message.content };
+        hasMatch = true;
+        return {
+          ...chat,
+          lastMessage: {
+            content: message.content,
+            createdAt: message.createdAt,
+            sender: message.sender
+          }
+        };
       }
       return chat;
     });
 
-    set({ conversations: updatedConversations });
+    if (hasMatch) {
+      set({ conversations: updatedConversations });
+    } else {
+      // New conversation created or received from new user/group
+      get().fetchConversations();
+    }
   },
 
   setTyping: (chatId, username) => {
@@ -612,14 +617,14 @@ const useChatStore = create(
     });
   },
 
-  removeTyping: (chatId, userId) => {
-    // Note: backend sends userId in userStoppedTyping, so we might need a map or just check if it's the active chat
+  removeTyping: (chatId, username) => {
+    // username is passed from the userStoppedTyping handler in App.jsx
     set((state) => {
       const current = state.typingUsers[chatId] || [];
       return {
         typingUsers: {
           ...state.typingUsers,
-          [chatId]: [] // Simple version: clear it
+          [chatId]: current.filter(u => u !== username)
         }
       };
     });
@@ -663,17 +668,27 @@ const useChatStore = create(
 
   deleteChat: async (chatType, chatId) => {
     const { addToast } = useUiStore.getState();
-    console.log('chatStore.deleteChat called with:', { chatType, chatId });
     try {
-      const res = await chatApi.clearChat(chatType, chatId); 
-      console.log('chatApi.clearChat (for delete) response:', res);
-      if (res.success) {
-        const { activeChat } = get();
-        if (activeChat && String(activeChat.id) === String(chatId) && activeChat.type === chatType) {
-          set({ activeChat: null, messages: [] });
+      if (chatType === 'group') {
+        const res = await groupApi.deleteGroup(chatId);
+        if (res.success) {
+          const { activeChat } = get();
+          if (activeChat && String(activeChat.id) === String(chatId)) {
+            set({ activeChat: null, messages: [] });
+          }
+          get().fetchConversations();
+          addToast('success', res.message || 'Group deleted');
         }
-        get().fetchConversations();
-        addToast('success', 'Chat deleted');
+      } else {
+        const res = await chatApi.clearChat(chatType, chatId);
+        if (res.success) {
+          const { activeChat } = get();
+          if (activeChat && String(activeChat.id) === String(chatId) && activeChat.type === chatType) {
+            set({ activeChat: null, messages: [] });
+          }
+          get().fetchConversations();
+          addToast('success', 'Chat deleted');
+        }
       }
     } catch (err) {
       console.error('Delete chat failed in store:', err);
@@ -732,10 +747,17 @@ const useChatStore = create(
   }
 }), {
   name: 'chat-storage',
-  partialize: (state) => ({ 
+  partialize: (state) => ({
     activeChat: state.activeChat,
     sessionUserId: state.sessionUserId
+    // onlineUsers (Set) intentionally excluded — Sets don't survive JSON serialization
   }),
+  onRehydrateStorage: () => (state) => {
+    // Ensure onlineUsers is always a Set after rehydration
+    if (state && !(state.onlineUsers instanceof Set)) {
+      state.onlineUsers = new Set();
+    }
+  },
 }));
 
 export default useChatStore;
