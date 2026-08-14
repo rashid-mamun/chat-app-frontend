@@ -14,14 +14,21 @@ export default function NotificationCenter() {
   }
 
   return (
-    <div className="notification-center px-2 py-3 border-b flex flex-col gap-2">
+    <div className="notification-center px-2 py-3 border-b flex flex-col gap-2" style={{ borderColor: 'var(--border)' }}>
       <span className="text-[10px] font-bold uppercase tracking-wider text-muted px-2">Notifications</span>
       
       {/* Group Invites */}
       {pendingInvites.map((invite) => (
-        <div key={invite.groupId} className="notification-item bg-accent/5 border border-accent/10 rounded-xl p-3 animate-slide-in">
+        <div 
+          key={invite.groupId} 
+          className="notification-item rounded-xl p-3 animate-slide-in"
+          style={{ background: 'var(--accent-ultra)', border: '1px solid var(--accent-light)' }}
+        >
           <div className="flex items-start gap-3">
-            <div className="p-2 bg-accent/10 rounded-lg text-accent">
+            <div 
+              className="p-2 rounded-lg text-accent"
+              style={{ background: 'var(--accent-light)' }}
+            >
               <UserPlus size={16} />
             </div>
             <div className="flex-1 min-w-0">
@@ -31,13 +38,15 @@ export default function NotificationCenter() {
               </p>
               <div className="flex items-center gap-2 mt-2">
                 <button 
-                  className="flex-1 py-1 bg-accent text-white text-[10px] font-bold rounded-md hover:brightness-110 transition-all"
+                  className="flex-1 py-1 text-white text-[10px] font-bold rounded-md hover:brightness-110 transition-all"
+                  style={{ background: 'var(--accent)' }}
                   onClick={() => handleInviteResponse(invite.groupId, 'accept')}
                 >
                   Accept
                 </button>
                 <button 
-                  className="flex-1 py-1 bg-secondary text-primary text-[10px] font-bold rounded-md hover:bg-default transition-all"
+                  className="flex-1 py-1 text-[10px] font-bold rounded-md transition-all"
+                  style={{ background: 'var(--bg-elevated)', color: 'var(--text-primary)', border: '1px solid var(--border)' }}
                   onClick={() => handleInviteResponse(invite.groupId, 'reject')}
                 >
                   Ignore
@@ -50,9 +59,16 @@ export default function NotificationCenter() {
 
       {/* Join Requests (Admin) */}
       {pendingJoinRequests.map((request) => (
-        <div key={`${request.groupId}-${request.userId}`} className="notification-item bg-primary/5 border border-primary/10 rounded-xl p-3 animate-slide-in">
+        <div 
+          key={`${request.groupId}-${request.userId}`} 
+          className="notification-item rounded-xl p-3 animate-slide-in"
+          style={{ background: 'var(--accent2-light)', border: '1px solid var(--border-strong)' }}
+        >
           <div className="flex items-start gap-3">
-            <div className="p-2 bg-primary/10 rounded-lg text-primary">
+            <div 
+              className="p-2 rounded-lg"
+              style={{ background: 'var(--accent2-light)', color: 'var(--accent2)' }}
+            >
               <Users size={16} />
             </div>
             <div className="flex-1 min-w-0">
@@ -62,13 +78,15 @@ export default function NotificationCenter() {
               </p>
               <div className="flex items-center gap-2 mt-2">
                 <button 
-                  className="p-1 px-3 bg-primary text-white text-[10px] font-bold rounded-md hover:brightness-110 transition-all flex items-center gap-1"
+                  className="p-1 px-3 text-white text-[10px] font-bold rounded-md hover:brightness-110 transition-all flex items-center gap-1"
+                  style={{ background: 'var(--accent)' }}
                   onClick={() => handleJoinRequest(request.groupId, request.userId, 'approve')}
                 >
                   <Check size={10} /> Approve
                 </button>
                 <button 
-                  className="p-1 px-3 bg-secondary text-primary text-[10px] font-bold rounded-md hover:bg-default transition-all flex items-center gap-1"
+                  className="p-1 px-3 text-[10px] font-bold rounded-md transition-all flex items-center gap-1"
+                  style={{ background: 'var(--bg-elevated)', color: 'var(--text-primary)', border: '1px solid var(--border)' }}
                   onClick={() => handleJoinRequest(request.groupId, request.userId, 'reject')}
                 >
                   <X size={10} /> Decline

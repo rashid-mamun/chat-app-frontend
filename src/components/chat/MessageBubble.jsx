@@ -1,4 +1,4 @@
-import { Check, CheckCheck, FileText, Download } from 'lucide-react';
+import { Check, CheckCheck, FileText, Download, Forward } from 'lucide-react';
 import { formatTime } from '../../utils/formatters';
 import useChatStore from '../../store/chatStore';
 import useAuthStore from '../../store/authStore';
@@ -66,6 +66,14 @@ export default function MessageBubble({ message, isOwn, grouped }) {
       
       <div className={`msg-bubble ${isOwn ? 'msg-bubble--own' : 'msg-bubble--other'} ${isDeleted ? 'msg-bubble--deleted' : ''} ${message.isSending ? 'msg-bubble--sending' : ''}`}>
         
+        {/* Forwarded Badge */}
+        {message.isForwarded && !isDeleted && (
+          <div className="flex items-center gap-1 text-[11px] text-muted italic mb-1 opacity-75">
+            <Forward size={12} />
+            <span>Forwarded</span>
+          </div>
+        )}
+
         {/* Reply Preview */}
         {replyTo && !isDeleted && (
           <div className="msg-reply-preview" onClick={() => {

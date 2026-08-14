@@ -11,7 +11,7 @@ import socketService from '../../api/socket.service';
 import './ChatWindow.css';
 
 export default function ChatWindow() {
-  const { openSidebar, toggleInfoPanel, openModal } = useUiStore();
+  const { openSidebar, toggleInfoPanel, openModal, theme } = useUiStore();
   const { user } = useAuthStore();
   const {
     activeChat,
@@ -67,6 +67,7 @@ export default function ChatWindow() {
     if (!text.trim()) return;
     sendMessage(text.trim());
     setText('');
+    setShowEmojiPicker(false);
   };
 
   const handleKeyDown = (e) => {
@@ -251,7 +252,7 @@ export default function ChatWindow() {
       <div className="chat-window__messages flex-1 overflow-y-auto bg-chat-pattern">
         {!isChatActive ? (
           <div className="chat-window__welcome">
-            <div className="chat-window__welcome-icon">
+            <div className="chat-window__welcome-icon" style={{ animation: 'float-icon 3s ease-in-out infinite' }}>
               <MessageSquare size={36} strokeWidth={1.5} />
             </div>
             <h2>Start chatting</h2>
@@ -370,7 +371,7 @@ export default function ChatWindow() {
                   <div className="chat-window__emoji-popover animate-fade-in-up origin-bottom-right">
                     <EmojiPicker
                       onEmojiClick={handleEmojiClick}
-                      theme="dark"
+                      theme={theme === 'dark' ? 'dark' : 'light'}
                       lazyLoadEmojis={true}
                       searchDisabled={false}
                       skinTonesDisabled={false}

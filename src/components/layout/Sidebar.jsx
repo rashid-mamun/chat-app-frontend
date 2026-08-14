@@ -135,7 +135,15 @@ export default function Sidebar() {
       {/* ── Footer ── */}
       <footer className="sidebar__footer">
         <button
-          onClick={() => logout()}
+          onClick={() => {
+            openModal('confirm', {
+              title: 'Sign Out',
+              message: 'Are you sure you want to sign out of your account?',
+              confirmText: 'Sign Out',
+              type: 'danger',
+              onConfirm: () => logout()
+            });
+          }}
           className="sidebar__signout-btn"
         >
           <LogOut size={15} />

@@ -108,8 +108,8 @@
 }
 
 [data-theme="dark"] .bg-chat-pattern {
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.014), rgba(255, 255, 255, 0.014));
+  background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 26px 26px;
 }
 
 /* ── Empty / Welcome State ── */

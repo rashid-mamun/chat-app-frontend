@@ -21,23 +21,24 @@ export default function ForwardModal({ message, onClose }) {
   const handleForward = () => {
     if (!selected) return;
 
-    const currentId = user?._id || user?.id;
     const type = selected.isGroup ? 'group' : 'private';
     const id = selected._id;
+    const entity = selected.isGroup ? selected : selected.user;
 
-    // Switch to that chat and send the forwarded message
-    setActiveChat(type, id, selected.isGroup ? selected : selected.user);
+    // Switch to destination chat
+    setActiveChat(type, id, entity);
 
-    setTimeout(() => {
-      sendMessage(message.content, message.fileUrl ? {
-        fileUrl: message.fileUrl,
-        fileName: message.fileName,
-        fileType: message.fileType,
-        fileSize: message.fileSize
-      } : null);
-      addToast('success', 'Message forwarded!');
-      onClose();
-    }, 300);
+    // Send the forwarded message
+    const fileData = message.fileUrl ? {
+      fileUrl: message.fileUrl,
+      fileName: message.fileName,
+      fileType: message.fileType,
+      fileSize: message.fileSize
+    } : null;
+
+    sendMessage(message.content || '', { ...fileData, isForwarded: true });
+    addToast('success', 'Message forwarded!');
+    onClose();
   };
 
   return (

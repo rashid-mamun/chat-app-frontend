@@ -129,7 +129,7 @@ export default function InfoPanel() {
     <div className="info-panel">
       {/* ── Header ── */}
       <header className="info-panel__header px-6 flex items-center justify-between">
-        <h2 className="font-semibold text-lg tracking-wide">Contact Info</h2>
+        <h2 className="font-semibold text-lg tracking-wide">{isGroup ? 'Group Info' : 'Contact Info'}</h2>
         <button 
           className="info-panel__close-btn shadow-sm" 
           onClick={closeInfoPanel}
