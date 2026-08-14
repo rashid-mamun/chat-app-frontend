@@ -78,7 +78,7 @@ export default function MessageBubble({ message, isOwn, grouped }) {
                 {replyTo.sender?.username || 'User'}
               </span>
               <p className="msg-reply-text">
-                {replyTo.content || (replyTo.fileUrl ? '📁 Media' : 'Message...')}
+                {replyTo.content || (replyTo.fileUrl ? 'Media' : 'Message...')}
               </p>
             </div>
           </div>
@@ -86,7 +86,6 @@ export default function MessageBubble({ message, isOwn, grouped }) {
         
         {isDeleted ? (
           <div className="msg-deleted">
-            <span className="msg-deleted-icon">🚫</span>
             <span>This message was deleted</span>
           </div>
         ) : (

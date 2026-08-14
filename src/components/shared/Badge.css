@@ -11,7 +11,7 @@
   border-radius: 999px;
   line-height: 1;
   font-family: 'Inter', sans-serif;
-  letter-spacing: 0.02em;
+  letter-spacing: 0;
 }
 
 /* Unread count badge */
@@ -19,9 +19,9 @@
   min-width: 18px;
   height: 18px;
   padding: 0 5px;
-  background: linear-gradient(135deg, var(--accent), var(--accent-dim));
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
   color: #fff;
-  box-shadow: 0 2px 6px rgba(124, 92, 252, 0.4);
+  box-shadow: var(--shadow-accent);
   animation: badge-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
@@ -36,7 +36,7 @@
   font-size: 11px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.04em;
   border: 1px solid transparent;
 }
 

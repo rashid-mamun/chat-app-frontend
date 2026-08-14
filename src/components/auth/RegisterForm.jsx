@@ -116,7 +116,7 @@ export default function RegisterForm() {
           leftIcon={<Lock size={18} />}
           rightIcon={showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
           onRightIconClick={() => setShowPassword(!showPassword)}
-          placeholder="••••••••"
+          placeholder="Create a password"
           autoComplete="new-password"
         />
 
@@ -130,7 +130,7 @@ export default function RegisterForm() {
           leftIcon={<Lock size={18} />}
           rightIcon={showConfirmPassword ? <EyeOff size={18} /> : <Eye size={18} />}
           onRightIconClick={() => setShowConfirmPassword(!showConfirmPassword)}
-          placeholder="••••••••"
+          placeholder="Confirm your password"
           autoComplete="new-password"
         />
       </div>

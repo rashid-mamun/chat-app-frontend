@@ -1,6 +1,6 @@
 .req-manager {
   margin: 4px 10px 4px;
-  background: linear-gradient(135deg, rgba(251, 191, 36, 0.06) 0%, rgba(124, 92, 252, 0.05) 100%);
+  background: linear-gradient(135deg, var(--warning-bg) 0%, var(--accent-ultra) 100%);
   border: 1px solid rgba(251, 191, 36, 0.2);
   border-radius: 14px;
   overflow: hidden;

@@ -94,7 +94,7 @@ export default function LoginForm({ onRequire2FA, onForgotPassword }) {
         leftIcon={<Lock size={18} />}
         rightIcon={showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
         onRightIconClick={() => setShowPassword(!showPassword)}
-        placeholder="••••••••"
+        placeholder="Enter your password"
         autoComplete="current-password"
       />
 

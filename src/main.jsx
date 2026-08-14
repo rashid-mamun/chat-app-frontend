@@ -12,7 +12,7 @@ const updateSW = registerSW({
 import ErrorBoundary from './components/shared/ErrorBoundary';
 
 // ── Apply saved theme BEFORE first render to avoid flash ──
-const savedTheme = localStorage.getItem('theme') || 'dark';
+const savedTheme = localStorage.getItem('theme') || 'light';
 document.documentElement.setAttribute('data-theme', savedTheme);
 
 createRoot(document.getElementById('root')).render(

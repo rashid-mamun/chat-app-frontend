@@ -9,12 +9,15 @@
   overflow: hidden;
   position: relative;
   background: var(--bg-primary);
+  padding: 0;
+  gap: 0;
 }
 
 /* ── Sidebar ── */
 .app-shell__sidebar {
-  width: 340px;
+  width: 344px;
   flex-shrink: 0;
+  border: 0;
   border-right: 1px solid var(--border);
   background: var(--bg-secondary);
   display: flex;
@@ -22,6 +25,9 @@
   z-index: 20;
   transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
   position: relative;
+  overflow: hidden;
+  box-shadow: none;
+  backdrop-filter: none;
 }
 
 /* ── Main Chat Area ── */
@@ -33,6 +39,10 @@
   background: var(--bg-primary);
   position: relative;
   z-index: 10;
+  border: 0;
+  border-radius: 0;
+  overflow: hidden;
+  box-shadow: none;
 }
 
 /* ── Info Panel ── */
@@ -49,10 +59,14 @@
 }
 
 .app-shell__info.is-open {
-  width: 320px;
+  width: 336px;
   opacity: 1;
   visibility: visible;
+  border: 0;
   border-left: 1px solid var(--border);
+  border-radius: 0;
+  overflow: hidden;
+  box-shadow: none;
 }
 
 /* Overlay for mobile */
@@ -76,7 +90,7 @@
     top: 0;
     bottom: 0;
     right: 0;
-    width: 320px;
+    width: min(360px, calc(100vw - 28px));
     transform: translateX(100%);
     box-shadow: var(--shadow-xl);
     opacity: 1;
@@ -97,6 +111,7 @@
     width: 88vw;
     max-width: 360px;
     transform: translateX(-100%);
+    border-radius: 0 18px 18px 0;
     box-shadow: var(--shadow-xl);
   }
   .app-shell__sidebar.is-open {

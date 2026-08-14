@@ -52,7 +52,7 @@ export default function ForwardModal({ message, onClose }) {
         <div className="forward-modal__preview">
           <p className="forward-modal__preview-label">Forwarding:</p>
           <p className="forward-modal__preview-text">
-            {message.content || (message.fileUrl ? `📁 ${message.fileName}` : '')}
+            {message.content || (message.fileUrl ? `File: ${message.fileName}` : '')}
           </p>
         </div>
 

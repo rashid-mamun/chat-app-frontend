@@ -22,14 +22,14 @@
 .input-el {
   width: 100%;
   padding: 13px 16px;
-  background: var(--bg-elevated);
-  border: 1.5px solid var(--border);
-  border-radius: 12px;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: 14px;
   color: var(--text-primary);
   font-size: 14px;
   font-weight: 400;
   outline: none;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
   line-height: 1.4;
 }
 
@@ -40,7 +40,7 @@
 
 .input-el:hover:not(:focus) {
   border-color: var(--border-strong);
-  background: var(--bg-hover);
+  background: var(--bg-elevated);
 }
 
 .input-el:focus {

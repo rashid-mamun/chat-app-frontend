@@ -105,7 +105,7 @@ export default function ResetPasswordPage() {
                 leftIcon={<Lock size={18} />}
                 rightIcon={showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                 onRightIconClick={() => setShowPassword(!showPassword)}
-                placeholder="••••••••"
+                placeholder="New password"
                 autoFocus
               />
 
@@ -119,7 +119,7 @@ export default function ResetPasswordPage() {
                 leftIcon={<Lock size={18} />}
                 rightIcon={showConfirmPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                 onRightIconClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                placeholder="••••••••"
+                placeholder="Confirm password"
               />
 
               <div className="flex flex-col gap-3 mt-4">

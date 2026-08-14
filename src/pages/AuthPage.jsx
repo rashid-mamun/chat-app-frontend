@@ -61,8 +61,8 @@ export default function AuthPage() {
   const getFormTitle = () => {
     if (require2FA) return { title: 'Two-Factor Auth', sub: 'Enter the 6-digit code from your authenticator app' };
     if (activeTab === 'forgot-password') return { title: 'Reset Password', sub: 'Enter your email to receive reset instructions' };
-    if (activeTab === 'login') return { title: 'Welcome back 👋', sub: 'Sign in to continue to your account' };
-    return { title: 'Create Account ✨', sub: 'Join thousands of people already chatting' };
+    if (activeTab === 'login') return { title: 'Welcome back', sub: 'Sign in to continue to your account' };
+    return { title: 'Create account', sub: 'Join and start chatting securely' };
   };
 
   const { title, sub } = getFormTitle();
@@ -72,8 +72,6 @@ export default function AuthPage() {
       {/* Background Elements */}
       <div className="auth-bg-elements">
         <div className="auth-ambient"></div>
-        <div className="auth-orb auth-orb-1"></div>
-        <div className="auth-orb auth-orb-2"></div>
       </div>
 
       {/* Theme Toggle Top Right */}
